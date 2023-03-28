@@ -1,0 +1,3 @@
+# Project exclude paths
+/yeapi-backend/target/
+/yeapi-gateway/target/
