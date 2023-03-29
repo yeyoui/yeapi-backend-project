@@ -1,7 +1,7 @@
 package com.yeyou.yeapiBackend.mapper;
 
-import com.yeyou.yeapiBackend.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 
 /**
 * @author lhy

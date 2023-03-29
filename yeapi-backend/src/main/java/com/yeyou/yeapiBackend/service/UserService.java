@@ -2,7 +2,7 @@ package com.yeyou.yeapiBackend.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yeyou.yeapiBackend.model.entity.User;
+import com.yeyou.yeapicommon.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 

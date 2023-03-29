@@ -37,3 +37,11 @@ yeapi:
   client:
     access-key: yeyoui
     secret-key: 123456
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://localhost:8848

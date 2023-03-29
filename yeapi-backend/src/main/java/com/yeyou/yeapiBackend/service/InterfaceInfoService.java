@@ -1,7 +1,7 @@
 package com.yeyou.yeapiBackend.service;
 
-import com.yeyou.yeapiBackend.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 
 /**
 * @author lhy

@@ -3,9 +3,9 @@ package com.yeyou.yeapiBackend.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapiBackend.exception.BusinessException;
-import com.yeyou.yeapiBackend.model.entity.InterfaceInfo;
 import com.yeyou.yeapiBackend.service.InterfaceInfoService;
 import com.yeyou.yeapiBackend.mapper.InterfaceInfoMapper;
+import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

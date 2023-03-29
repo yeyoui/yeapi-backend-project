@@ -1,6 +1,6 @@
 package com.yeyou.yeapiBackend.model.vo;
 
-import com.yeyou.yeapiBackend.model.entity.Post;
+import com.yeyou.yeapicommon.model.entity.Post;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

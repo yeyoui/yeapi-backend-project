@@ -3,15 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
 
     <modules>
         <module>yeapi-backend</module>
+        <module>yeapi-gateway</module>
+        <module>yeapi-common</module>
     </modules>
 
     <groupId>com.yeyou</groupId>
@@ -23,6 +19,7 @@
     <description>夜API接口后端项目</description>
 
     <properties>
+        <spring-boot.version>2.7.0</spring-boot.version>
         <spring.boot.starter.web.version>2.7.0</spring.boot.starter.web.version>
         <spring.boot.starter.aop.version>2.7.0</spring.boot.starter.aop.version>
         <mybatis.spring.boot.starter.version>2.2.2</mybatis.spring.boot.starter.version>
@@ -38,12 +35,22 @@
         <lombok.version>1.18.24</lombok.version>
         <spring.boot.starter.test.version>2.7.0</spring.boot.starter.test.version>
         <junit.version>4.13.2</junit.version>
+        <nacos.client.version>2.1.2</nacos.client.version>
         <yeapi.client.sdk.version>0.0.1</yeapi.client.sdk.version>
+        <dubbo.version>3.0.9</dubbo.version>
+        <java.version>1.8</java.version>
     </properties>
 
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
@@ -130,10 +137,22 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <!--        https://cn.dubbo.apache.org/zh-cn/overview/what/ecosystem/registry/nacos/-->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.client.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.yeyou</groupId>
                 <artifactId>yeapi-client-sdk</artifactId>
                 <version>${yeapi.client.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo-bom</artifactId>
+                <version>${dubbo.version}</version>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>

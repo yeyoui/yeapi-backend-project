@@ -5,7 +5,7 @@ import com.yeyou.yeapiBackend.annotation.AuthCheck;
 import com.yeyou.yeapiBackend.service.UserService;
 import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapiBackend.exception.BusinessException;
-import com.yeyou.yeapiBackend.model.entity.User;
+import com.yeyou.yeapicommon.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

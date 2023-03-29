@@ -1,7 +1,13 @@
 package com.yeyou.yeapigateway.filter;
 
 import com.yeyou.yeapiclientsdk.utils.SignUtils;
+import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
+import com.yeyou.yeapicommon.model.entity.User;
+import com.yeyou.yeapicommon.service.InnerInterfaceInfoService;
+import com.yeyou.yeapicommon.service.InnerUserInterfaceInfoService;
+import com.yeyou.yeapicommon.service.InnerUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.reactivestreams.Publisher;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.core.Ordered;
@@ -9,6 +15,7 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferFactory;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -30,6 +37,12 @@ import java.util.List;
 @Slf4j
 public class GlobalFilter implements org.springframework.cloud.gateway.filter.GlobalFilter, Ordered {
 
+    @DubboReference
+    private InnerUserService innerUserService;
+    @DubboReference
+    private InnerInterfaceInfoService innerInterfaceInfoService;
+    @DubboReference
+    private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
     @Deprecated
     private static final HashMap<String,String> AKSK=new HashMap<>();
     static {
@@ -37,7 +50,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
     }
 
     private final static List<String> IP_WHITE_LIST = Arrays.asList("127.0.0.1");
-    private final static String INTERFACE_HOST ="localhost:8081";
+    private final static String INTERFACE_HOST ="http://localhost:8081";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -45,15 +58,16 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         ServerHttpRequest request = exchange.getRequest();
         String requestPath = INTERFACE_HOST+request.getPath().value();
         String sourceAddress = request.getLocalAddress().getHostString();
+        String method = request.getMethod().toString();
 
         log.info("链路ID: {}",request.getId());
         log.info("调用路径: {}", requestPath);
         log.info("调用参数: {}", request.getQueryParams());
-        log.info("方法: {}",request.getMethod());
+        log.info("方法: {}", method);
         log.info("远程地址: {}\n_____________________", sourceAddress);
 
         ServerHttpResponse response = exchange.getResponse();
-        //2. 检查目标ID是否是白名单用户
+        //2. 检查目标IP是否是白名单用户
         if(!IP_WHITE_LIST.contains(sourceAddress)){
             return handleNoAuth(response);
         }
@@ -64,6 +78,18 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         String randomNum = headers.getFirst("randomNum");
         String timestamp = headers.getFirst("timestamp");
         String body = headers.getFirst("body");
+
+        User invokeUserInfo = null;
+        try {
+            invokeUserInfo = innerUserService.getInvokeUserInfo(accessKey);
+        } catch (Exception e) {
+            log.error("getInvokeUser error",e);
+        }
+        if(invokeUserInfo==null){
+            return handleNoAuth(response);
+        }
+        //todo 用户还有调用次数
+
         //   1. 检查时间戳是否大于5分钟'
         final long FIVE_MINUTES=60 * 5L;
         long nowTimeStamp = System.currentTimeMillis() / 1000;
@@ -72,17 +98,26 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         }
         //   2. todo 在5分钟内随机数是否重新收到（不能收到重复的随机数 使用Redis实现）
         //   3. todo 将数据进行签名运算，然后对比客户端发来的签名
-        String secret = AKSK.get(accessKey);
-        String serviceSign = SignUtils.getSign(body, secret);
+
+        String serviceSign = SignUtils.getSign(body, invokeUserInfo.getSecretKey());
+        //秘钥错误
         if(!serviceSign.equals(clientSign)){
             return handleNoAuth(response);
         }
-        //5. todo 接口是否存在(RPC调用yeapi-backend的服务)
-
+        //5. 接口是否存在(RPC调用yeapi-backend的服务)
+        InterfaceInfo interfaceInfo = null;
+        try {
+            interfaceInfo = innerInterfaceInfoService.getInterfaceInfo(requestPath, method);
+        } catch (Exception e) {
+            log.error("getInterface error",e);
+        }
+        if(interfaceInfo==null) {
+            return handleArgsErr(response);
+        }
         //6. 请求转发，调用接口
         chain.filter(exchange);
         //7. 响应日志
-        return handleResponse(exchange, chain);
+        return handleResponse(exchange, chain,interfaceInfo.getId(), invokeUserInfo.getId());
     }
 
     /**
@@ -92,7 +127,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
      * @param chain
      * @return
      */
-    public Mono<Void> handleResponse(ServerWebExchange exchange, GatewayFilterChain chain) {
+    public Mono<Void> handleResponse(ServerWebExchange exchange, GatewayFilterChain chain,long interfaceInfoId,long userId) {
         try {
             ServerHttpResponse originalResponse = exchange.getResponse();
             // 缓存数据的工厂
@@ -112,12 +147,12 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
                             // 拼接字符串
                             return super.writeWith(
                                     fluxBody.map(dataBuffer -> {
-                                        // 7. todo 调用成功，接口调用次数 + 1 invokeCount
-//                                        try {
-//                                            innerUserInterfaceInfoService.invokeCount(interfaceInfoId, userId);
-//                                        } catch (Exception e) {
-//                                            log.error("invokeCount error", e);
-//                                        }
+                                        // 7. 调用成功，接口调用次数 + 1 invokeCount
+                                        try {
+                                            boolean result = innerUserInterfaceInfoService.invokeCount(interfaceInfoId, userId);
+                                        } catch (Exception e) {
+                                            log.error("invokeCount error", e);
+                                        }
                                         byte[] content = new byte[dataBuffer.readableByteCount()];
                                         dataBuffer.read(content);
                                         DataBufferUtils.release(dataBuffer);//释放掉内存
@@ -152,6 +187,11 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
 
     private static Mono<Void> handleNoAuth(ServerHttpResponse response) {
         response.setStatusCode(HttpStatus.FORBIDDEN);
+        return response.setComplete();
+    }
+
+    private static Mono<Void> handleArgsErr(ServerHttpResponse response) {
+        response.setStatusCode(HttpStatus.BAD_REQUEST);
         return response.setComplete();
     }
 

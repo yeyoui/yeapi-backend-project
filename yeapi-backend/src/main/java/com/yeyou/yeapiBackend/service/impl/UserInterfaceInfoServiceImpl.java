@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapiBackend.exception.BusinessException;
-import com.yeyou.yeapiBackend.model.entity.UserInterfaceInfo;
 import com.yeyou.yeapiBackend.service.UserInterfaceInfoService;
 import com.yeyou.yeapiBackend.mapper.UserInterfaceInfoMapper;
+import com.yeyou.yeapicommon.model.entity.UserInterfaceInfo;
 import org.springframework.stereotype.Service;
 
 /**

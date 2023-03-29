@@ -9,7 +9,7 @@ import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapiBackend.common.ResultUtils;
 import com.yeyou.yeapiBackend.exception.BusinessException;
 import com.yeyou.yeapiBackend.model.dto.user.*;
-import com.yeyou.yeapiBackend.model.entity.User;
+import com.yeyou.yeapicommon.model.entity.User;
 import com.yeyou.yeapiBackend.model.vo.UserVO;
 import com.yeyou.yeapiBackend.service.UserService;
 import org.apache.commons.lang3.StringUtils;

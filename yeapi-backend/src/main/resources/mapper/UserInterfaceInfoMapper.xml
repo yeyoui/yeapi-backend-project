@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yeyou.yeapiBackend.mapper.UserInterfaceInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.yeyou.yeapiBackend.model.entity.UserInterfaceInfo">
+    <resultMap id="BaseResultMap" type="com.yeyou.yeapicommon.model.entity.UserInterfaceInfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="userId" column="userId" jdbcType="BIGINT"/>
             <result property="interfaceId" column="interfaceId" jdbcType="BIGINT"/>

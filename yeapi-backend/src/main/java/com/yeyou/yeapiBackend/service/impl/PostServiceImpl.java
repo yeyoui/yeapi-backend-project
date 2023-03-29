@@ -7,7 +7,7 @@ import com.yeyou.yeapiBackend.model.enums.PostGenderEnum;
 import com.yeyou.yeapiBackend.model.enums.PostReviewStatusEnum;
 import com.yeyou.yeapiBackend.service.PostService;
 import com.yeyou.yeapiBackend.common.ErrorCode;
-import com.yeyou.yeapiBackend.model.entity.Post;
+import com.yeyou.yeapicommon.model.entity.Post;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
