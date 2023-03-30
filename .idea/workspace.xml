@@ -4,16 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/pom.xml" afterDir="false" />
+    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/PostVO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,13 +52,37 @@
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Coding Workstations/Project/YeApi/yeapi-backend-project/yeapi-gateway/pom.xml",
+    "jdk.selected.JAVA_MODULE": "1.8",
+    "last_opened_file_path": "E:/Coding Workstations/Project/YeApi/yeapi-backend-project/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.3468045",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "spring.configuration.checksum": "39288d21e47b2470199008cc64ba1152",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-backend\src\main\java\com\yeyou\yeapiBackend\service\impl\Inner" />
+      <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-common\src\main\java\com\yeyou\yeapicommon\service" />
+      <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-common\src\main\java\com\yeyou\yeapicommon\model" />
+      <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-common\src\main\java\com\yeyou\yeapicommon\service\model" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yeyou.yeapicommon.service" />
+    </key>
+  </component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -91,8 +126,17 @@
       <option name="presentableId" value="Default" />
       <updated>1679991144247</updated>
       <workItem from="1679991145836" duration="3174000" />
-      <workItem from="1679994335605" duration="75000" />
+      <workItem from="1679994335605" duration="4832000" />
+      <workItem from="1680068903029" duration="14912000" />
     </task>
+    <task id="LOCAL-00001" summary="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
+      <created>1680097509560</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680097509560</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -113,5 +157,7 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/yeapi-backend" />
     </ignored-roots>
+    <MESSAGE value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
+    <option name="LAST_COMMIT_MESSAGE" value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
   </component>
 </project>

@@ -9,13 +9,15 @@
         <outputRelativeToContentRoot value="true" />
         <module name="yeapi-backend" />
         <module name="yeapi-gateway" />
+        <module name="yeapi-common" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="yeapi-backend" options="-parameters" />
+      <module name="yeapi-backend" options="" />
       <module name="yeapi-backend-project" options="" />
+      <module name="yeapi-common" options="-parameters" />
       <module name="yeapi-gateway" options="-parameters" />
     </option>
   </component>
