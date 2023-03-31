@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/PostVO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,31 +43,32 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "E:/Coding Workstations/Project/YeApi/yeapi-backend-project/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.3468045",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "spring.configuration.checksum": "39288d21e47b2470199008cc64ba1152",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Coding Workstations/Project/YeApi/yeapi-backend-project/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.3468045&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;dd9802926af4b6c088a80c1be4730e6e&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -90,7 +90,23 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.YeapiGatewayApplication">
+  <component name="RunManager" selected="Spring Boot.YeApiBackendMain">
+    <configuration name="ReflectionInvokeTest.testGson" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="yeapi-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yeyou.yeapiBackend.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yeyou.yeapiBackend.service" />
+      <option name="MAIN_CLASS_NAME" value="com.yeyou.yeapiBackend.service.ReflectionInvokeTest" />
+      <option name="METHOD_NAME" value="testGson" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="YeApiBackendMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="yeapi-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.yeyou.yeapiBackend.YeApiBackendMain" />
@@ -111,9 +127,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.ReflectionInvokeTest.testGson" />
+      <item itemvalue="Spring Boot.YeApiBackendMain" />
+      <item itemvalue="Spring Boot.YeapiGatewayApplication" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.YeapiGatewayApplication" />
+        <item itemvalue="JUnit.ReflectionInvokeTest.testGson" />
       </list>
     </recent_temporary>
   </component>
@@ -128,6 +150,9 @@
       <workItem from="1679991145836" duration="3174000" />
       <workItem from="1679994335605" duration="4832000" />
       <workItem from="1680068903029" duration="14912000" />
+      <workItem from="1680156352840" duration="4171000" />
+      <workItem from="1680183421931" duration="10631000" />
+      <workItem from="1680260401308" duration="6013000" />
     </task>
     <task id="LOCAL-00001" summary="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
       <created>1680097509560</created>
@@ -136,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680097509560</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update">
+      <created>1680157318604</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680157318604</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,6 +190,7 @@
       <path value="$PROJECT_DIR$/yeapi-backend" />
     </ignored-roots>
     <MESSAGE value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
-    <option name="LAST_COMMIT_MESSAGE" value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
 </project>

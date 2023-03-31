@@ -14,6 +14,8 @@ import com.yeyou.yeapiBackend.model.enums.InterfaceInfoEnum;
 import com.yeyou.yeapiBackend.service.InterfaceInfoService;
 import com.yeyou.yeapiBackend.service.UserService;
 import com.yeyou.yeapiclientsdk.client.YeApiClient;
+import com.yeyou.yeapiclientsdk.model.Pet;
+import com.yeyou.yeapiclientsdk.utils.CustomizeInvokeUtils;
 import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 import com.yeyou.yeapicommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * 帖子接口
+ * 接口信息管理
  *
  * @author yeyou
  */
@@ -217,10 +219,10 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR, "无权操作");
         }
         //4. 调用接口以校验接口有效性
-        String result = yeApiClient.getUserByPost(new com.yeyou.yeapiclientsdk.model.User("yeyoui"));
-        if(StringUtils.isBlank(result)){
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
-        }
+//        String result = yeApiClient.getUserByPost(new com.yeyou.yeapiclientsdk.model.User("yeyoui",123,new Pet("hhh")));
+//        if(StringUtils.isBlank(result)){
+//            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
+//        }
         //5. 更新接口信息
         InterfaceInfo newInterface = new InterfaceInfo();
         newInterface.setId(interfaceId);
@@ -264,7 +266,7 @@ public class InterfaceInfoController {
 
 
     @PostMapping("/invoke")
-    public BaseResponse<Object> invokeInterface(@RequestBody InterfaceInvokeRequest invokeRequest, HttpServletRequest request){
+    public BaseResponse invokeInterface(@RequestBody InterfaceInvokeRequest invokeRequest, HttpServletRequest request){
         //1. 检查传入的参数信息
         if(invokeRequest==null || invokeRequest.getId()<=0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
         Long interfaceId = invokeRequest.getId();
@@ -275,20 +277,25 @@ public class InterfaceInfoController {
         User loginUser = userService.getLoginUser(request);
         if(loginUser==null) throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         //4. 调用接口以校验接口有效性
-        String result = yeApiClient.getUserByPost(new com.yeyou.yeapiclientsdk.model.User("yeyoui"));
-        if(StringUtils.isBlank(result)){
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
-        }
+//        String result = yeApiClient.getUserByPost(new com.yeyou.yeapiclientsdk.model.User("yeyoui"));
+//        if(StringUtils.isBlank(result)){
+//            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
+//        }
+        String result;
+        String result2;
+
         //5.获取AKSK并且调用接口
         String accessKey= loginUser.getAccessKey();
         String secretKey = loginUser.getSecretKey();
-        YeApiClient yeApiClientTest = new YeApiClient(accessKey,secretKey);
+        YeApiClient userYeApiClient = new YeApiClient(accessKey,secretKey);
+        //6.获取要模拟调用方法的必备信息
+        Object callResult=null;
         try {
-            result = yeApiClientTest.getUserByPost(new com.yeyou.yeapiclientsdk.model.User(invokeRequest.getUserRequestParams()));
+            callResult =CustomizeInvokeUtils.invokeYeApiClientMethod(userYeApiClient, interfaceInfo.getName(), invokeRequest.getUserRequestParams());
         } catch (Exception e) {
             return ResultUtils.error(ErrorCode.SYSTEM_ERROR, "无法请求接口调用");
         }
-        return ResultUtils.success(result);
+        return ResultUtils.success(callResult);
     }
 
 }
