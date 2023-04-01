@@ -1,13 +1,18 @@
 server:
   port: 8090
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: weight_high
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/name/**
 spring:
-  cloud:
-    gateway:
-      routes:
-        - id: weight_high
-          uri: http://localhost:8081
-          predicates:
-            - Path=/name/**
+  redis:
+    port: 6379
+    host: 127.0.0.1
+    database: 3
 dubbo:
   application:
     name: dubbo-springboot-demo-provider
@@ -16,5 +21,5 @@ dubbo:
     port: -1
   registry:
     id: nacos-registry
-    address: nacos://localhost:8848
+    address: nacos://172.31.49.170:8848
 

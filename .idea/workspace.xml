@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" afterDir="false" />
+    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数">
+      <change afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/constants/RedisConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/route/GatewayRoute.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/GatewayDesign.md" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/GatewayDesign.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/resource/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/resource/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -152,7 +156,8 @@
       <workItem from="1680068903029" duration="14912000" />
       <workItem from="1680156352840" duration="4171000" />
       <workItem from="1680183421931" duration="10631000" />
-      <workItem from="1680260401308" duration="6013000" />
+      <workItem from="1680260401308" duration="6377000" />
+      <workItem from="1680327847873" duration="10277000" />
     </task>
     <task id="LOCAL-00001" summary="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
       <created>1680097509560</created>
@@ -168,7 +173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680157318604</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数">
+      <created>1680268287300</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680268287300</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +203,7 @@
     </ignored-roots>
     <MESSAGE value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数" />
   </component>
 </project>
