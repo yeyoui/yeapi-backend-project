@@ -33,7 +33,7 @@ create table interface_info
     requestParams  varchar(512)                       null comment '请求参数(json)',
     requestHeader  text                               null comment '请求头',
     responseHeader text                               null comment '响应头',
-    status         int      default 0                 not null comment '接口状态（0-关闭，1-开启）',
+    status         int      default 2                 not null comment '接口状态（0-关闭，1-开启 2-等待审核 3-被管理员拒绝）',
     method         varchar(256)                       not null comment '请求类型',
     userId         bigint                             not null comment '创建人ID',
     createTime     datetime default CURRENT_TIMESTAMP not null comment '创建时间',

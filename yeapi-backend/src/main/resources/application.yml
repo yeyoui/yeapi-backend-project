@@ -44,4 +44,5 @@ dubbo:
     name: dubbo
     port: -1
   registry:
-    address: nacos://172.31.49.170:8848
+    address: nacos://localhost:8848
+gatewayhost: http://locahost:8090

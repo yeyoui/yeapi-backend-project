@@ -10,6 +10,6 @@ public class GatewayRoute {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder){
         return builder.routes()
-                .route(r->r.path("/name/**").uri("http://localhost:8080")).build();
+                .route(r->r.path("/yeapi/**").uri("http://localhost:1111")).build();
     }
 }

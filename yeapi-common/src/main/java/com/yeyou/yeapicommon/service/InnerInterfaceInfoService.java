@@ -9,5 +9,5 @@ public interface InnerInterfaceInfoService {
     /**
      * 获取接口信息
      */
-    InterfaceInfo getInterfaceInfo(String url,String method);
+    InterfaceInfo getInterfaceInfoById(Long id);
 }

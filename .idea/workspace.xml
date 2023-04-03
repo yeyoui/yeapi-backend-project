@@ -4,16 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数">
-      <change afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/constants/RedisConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/route/GatewayRoute.java" afterDir="false" />
+    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/sql/ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/sql/ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoQueryRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoUpdateRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerInterfaceInfoServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-gateway/GatewayDesign.md" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/GatewayDesign.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/YeapiGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/YeapiGatewayApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/route/GatewayRoute.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/route/GatewayRoute.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/resource/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/resource/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,6 +51,9 @@
         <option name="userSettingsFile" value="D:\tool\java\apache-maven-3.8.6\conf\settings.xml" />
       </MavenGeneralSettings>
     </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
   </component>
   <component name="ProjectId" id="2NdPmFijX6u4mefIfncc0j2d7Ok" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -111,6 +124,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="yeapi-backend-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/yeapi-backend/target/yeapi-backend-0.0.1-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="yeapi-gateway-0.0.1-SNAPSHOT.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/yeapi-gateway/target/yeapi-gateway-0.0.1-SNAPSHOT.jar" />
+      <method v="2" />
+    </configuration>
     <configuration name="YeApiBackendMain" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="yeapi-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.yeyou.yeapiBackend.YeApiBackendMain" />
@@ -132,6 +153,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="JAR Application.yeapi-backend-0.0.1-SNAPSHOT.jar" />
+      <item itemvalue="JAR Application.yeapi-gateway-0.0.1-SNAPSHOT.jar" />
       <item itemvalue="JUnit.ReflectionInvokeTest.testGson" />
       <item itemvalue="Spring Boot.YeApiBackendMain" />
       <item itemvalue="Spring Boot.YeapiGatewayApplication" />
@@ -139,6 +162,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.YeapiGatewayApplication" />
+        <item itemvalue="JAR Application.yeapi-gateway-0.0.1-SNAPSHOT.jar" />
+        <item itemvalue="JAR Application.yeapi-backend-0.0.1-SNAPSHOT.jar" />
         <item itemvalue="JUnit.ReflectionInvokeTest.testGson" />
       </list>
     </recent_temporary>
@@ -157,7 +182,12 @@
       <workItem from="1680156352840" duration="4171000" />
       <workItem from="1680183421931" duration="10631000" />
       <workItem from="1680260401308" duration="6377000" />
-      <workItem from="1680327847873" duration="10277000" />
+      <workItem from="1680327847873" duration="10534000" />
+      <workItem from="1680346140141" duration="3935000" />
+      <workItem from="1680496208751" duration="7261000" />
+      <workItem from="1680503842620" duration="6452000" />
+      <workItem from="1680527348807" duration="2449000" />
+      <workItem from="1680530969530" duration="7916000" />
     </task>
     <task id="LOCAL-00001" summary="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
       <created>1680097509560</created>
@@ -180,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680268287300</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置">
+      <created>1680338698250</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680338698250</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +241,7 @@
     <MESSAGE value="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证" />
     <MESSAGE value="update" />
     <MESSAGE value="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数" />
+    <MESSAGE value="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置" />
   </component>
 </project>

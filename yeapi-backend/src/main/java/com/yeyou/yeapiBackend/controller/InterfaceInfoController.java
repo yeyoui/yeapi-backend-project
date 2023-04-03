@@ -14,18 +14,20 @@ import com.yeyou.yeapiBackend.model.enums.InterfaceInfoEnum;
 import com.yeyou.yeapiBackend.service.InterfaceInfoService;
 import com.yeyou.yeapiBackend.service.UserService;
 import com.yeyou.yeapiclientsdk.client.YeApiClient;
-import com.yeyou.yeapiclientsdk.model.Pet;
 import com.yeyou.yeapiclientsdk.utils.CustomizeInvokeUtils;
 import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 import com.yeyou.yeapicommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 接口信息管理
@@ -45,6 +47,9 @@ public class InterfaceInfoController {
 
     @Resource
     private YeApiClient yeApiClient;
+
+    @Value("${gatewayhost}")
+    private String GATEWAY_HOST;
 
 
 
@@ -142,11 +147,26 @@ public class InterfaceInfoController {
      * @return
      */
     @GetMapping("/get")
-    public BaseResponse<InterfaceInfo> getInterfaceInfoById(long id) {
+    public BaseResponse<InterfaceInfo> getInterfaceInfoById(long id,HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         InterfaceInfo interfaceInfo = interfaceInfoService.getById(id);
+        boolean isAdmin = userService.isAdmin(request);
+        if(!isAdmin){
+            //接口地址脱敏
+            Pattern pattern = Pattern.compile("^https?://.*?/");
+            String url = interfaceInfo.getUrl();
+            Matcher matcher = pattern.matcher(url);
+            String urlVo;
+            if (matcher.find(0)) {
+                String val = matcher.group(0);
+                urlVo = GATEWAY_HOST + "/" + url.substring(val.length());
+            } else {
+                urlVo = GATEWAY_HOST;
+            }
+            interfaceInfo.setUrl(urlVo);
+        }
         return ResultUtils.success(interfaceInfo);
     }
 
@@ -198,6 +218,23 @@ public class InterfaceInfoController {
         queryWrapper.orderBy(StringUtils.isNotBlank(sortField),
                 sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
+        boolean isAdmin = userService.isAdmin(request);
+        if(!isAdmin){
+            //接口地址脱敏
+            Pattern pattern = Pattern.compile("^https?://.*?/");
+            interfaceInfoPage.getRecords().forEach((item)->{
+                String url = item.getUrl();
+                Matcher matcher = pattern.matcher(url);
+                String urlVo;
+                if(matcher.find(0)){
+                    String val = matcher.group(0);
+                    urlVo = GATEWAY_HOST + "/" + url.substring(val.length());
+                }else {
+                    urlVo=GATEWAY_HOST;
+                }
+                item.setUrl(urlVo);
+            });
+        }
         return ResultUtils.success(interfaceInfoPage);
     }
 
@@ -264,7 +301,12 @@ public class InterfaceInfoController {
         return ResultUtils.success(true);
     }
 
-
+    /**
+     * 模拟调用
+     * @param invokeRequest
+     * @param request
+     * @return
+     */
     @PostMapping("/invoke")
     public BaseResponse invokeInterface(@RequestBody InterfaceInvokeRequest invokeRequest, HttpServletRequest request){
         //1. 检查传入的参数信息
@@ -296,6 +338,20 @@ public class InterfaceInfoController {
             return ResultUtils.error(ErrorCode.SYSTEM_ERROR, "无法请求接口调用");
         }
         return ResultUtils.success(callResult);
+    }
+
+    /**
+     * 同意用户上传接口（管理员权限）
+     * @param idRequest
+     * @return
+     */
+    @GetMapping("/agreeUpload")
+    @AuthCheck(mustRole = "admin")
+    public BaseResponse<Boolean> agreeUpload(IdRequest idRequest){
+        if(idRequest.getId()<=0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        boolean result = interfaceInfoService.update().set("status", 0).update();
+        if(!result) throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        return ResultUtils.success(true);
     }
 
 }

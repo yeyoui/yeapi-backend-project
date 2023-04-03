@@ -45,7 +45,7 @@ public class InterfaceInfoQueryRequest extends PageRequest implements Serializab
     private String responseHeader;
 
     /**
-     * 接口状态（0-关闭，1-开启）
+     * 接口状态（0-关闭，1-开启 2-等待审核 3-被管理员拒绝）
      */
     private Integer status;
 

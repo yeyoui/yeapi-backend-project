@@ -14,5 +14,4 @@ public class YeapiGatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(YeapiGatewayApplication.class, args);
     }
-
 }

@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/yeapi-backend/pom.xml" />
         <option value="$PROJECT_DIR$/yeapi-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/yeapi-common/pom.xml" />
       </list>
     </option>
   </component>

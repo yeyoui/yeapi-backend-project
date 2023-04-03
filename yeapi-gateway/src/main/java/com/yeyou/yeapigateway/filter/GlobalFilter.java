@@ -55,6 +55,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
     private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
 
     private final static List<String> IP_BLACK_LIST = Arrays.asList("null");
+    private final static String GATEWAY_NAME = "yeapi-gateway-01";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -77,9 +78,9 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         String randomNum = headers.getFirst("randomNum");
         String timestamp = headers.getFirst("timestamp");
         String body = headers.getFirst("body");
-        String requestUrl = headers.getFirst("requestUrl");
+        String interfaceId = headers.getFirst("interfaceId");
         log.info("链路ID: {}",request.getId());
-        log.info("调用路径: {}", requestUrl);
+        log.info("调用路径: {}", request.getPath());
         log.info("调用参数: {}", request.getQueryParams());
         log.info("方法: {}", method);
         log.info("远程地址: {}\n_____________________", sourceAddress);
@@ -99,7 +100,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         //4. 接口是否存在(RPC调用yeapi-backend的服务)
         InterfaceInfo interfaceInfo = null;
         try {
-            interfaceInfo = innerInterfaceInfoService.getInterfaceInfo(requestUrl, method);
+            interfaceInfo = innerInterfaceInfoService.getInterfaceInfoById(Long.parseLong(interfaceId));
         } catch (Exception e) {
             log.error("getInterface error",e);
         }
@@ -126,15 +127,17 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         if(surplus<=0) return handleNoAuth(response);
 
         //6.1匹配请求地址
-        //从接口中解析host信息
-        Pattern pattern = Pattern.compile("^http://.*?/");
-        Matcher matcher = pattern.matcher(interfaceInfo.getUrl());
-        if (!matcher.find(0)){
-            return handleArgsErr(response);
-        }
-        String uriStr = matcher.group(0);
+        //从接口中解析url信息
+//        Pattern pattern = Pattern.compile("^http://.*?/");
+//        Matcher matcher = pattern.matcher(interfaceInfo.getUrl());
+//        if (!matcher.find(0)){
+//            return handleArgsErr(response);
+//        }
+//        String uriStr = matcher.group(0);
+        String uriStr = interfaceInfo.getUrl();
         URI uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
-        request.mutate().uri(uri).build();
+        // 生成新的Request对象，该对象放弃了常规路由配置中的spring.cloud.gateway.routes.uri字段
+        ServerHttpRequest newRequest = request.mutate().header("gatewayName",GATEWAY_NAME).uri(uri).build();
         // 取出当前的route对象
         Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
         //重新设置Route地址
@@ -143,10 +146,8 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
                         .order(route.getOrder()).uri(uri).build();
         // 放回exchange中
         exchange.getAttributes().put(GATEWAY_ROUTE_ATTR,newRoute);
-
         //6. 请求转发，调用接口
         chain.filter(exchange);
-
         //7. 响应日志
         return handleResponse(exchange, chain,interfaceInfo.getId(), invokeUserInfo.getId());
     }

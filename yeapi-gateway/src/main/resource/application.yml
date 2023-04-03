@@ -15,11 +15,11 @@ spring:
     database: 3
 dubbo:
   application:
-    name: dubbo-springboot-demo-provider
+    name: dubbo-springboot-gateway
   protocol:
     name: dubbo
     port: -1
   registry:
     id: nacos-registry
-    address: nacos://172.31.49.170:8848
+    address: nacos://localhost:8848
 
