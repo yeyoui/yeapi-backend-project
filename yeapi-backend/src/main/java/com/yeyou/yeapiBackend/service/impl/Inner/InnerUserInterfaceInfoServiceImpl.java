@@ -1,6 +1,7 @@
 package com.yeyou.yeapiBackend.service.impl.Inner;
 
 import com.yeyou.yeapiBackend.service.UserInterfaceInfoService;
+import com.yeyou.yeapiBackend.service.UserService;
 import com.yeyou.yeapicommon.model.entity.UserInterfaceInfo;
 import com.yeyou.yeapicommon.service.InnerUserInterfaceInfoService;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -14,6 +15,8 @@ import javax.annotation.Resource;
 public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfoService {
     @Resource
     private UserInterfaceInfoService userInterfaceInfoService;
+    @Resource
+    private UserService userService;
 
     @Override
     public boolean invokeCount(long interfaceId, long userId) {
@@ -22,6 +25,8 @@ public class InnerUserInterfaceInfoServiceImpl implements InnerUserInterfaceInfo
 
     @Override
     public int getInterfaceSurplusByIUId(long interfaceId, long userId) {
+        //管理员调用接口不受限制
+        if(userService.isAdmin(userId)) return 999;
         UserInterfaceInfo userInterfaceInfo = userInterfaceInfoService.query()
                 .select("surplusNum")
                 .eq("interfaceId", interfaceId)

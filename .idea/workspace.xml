@@ -4,22 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="c03567b9-f6df-40f0-9f75-3c3db3cb1c20" name="Changes" comment="fix: 隐藏接口提供方的地址">
+      <change afterPath="$PROJECT_DIR$/.idea/mybatisx/templates.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend-project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceAnalysisController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceSecretController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/mapper/InterfaceSecretMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceSecret/InterfaceSecretRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/vo/InterfaceInfoVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerInterfaceSecretServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-backend/yeapi-backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceSecret.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerInterfaceSecretService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-common/yeapi-common.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/config/KeyResolverConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yeapi-gateway/yeapi-gateway.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/YeAPI.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-backend/sql/ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/sql/ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/common/DeleteRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/common/DeleteRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/config/MyBatisPlusConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/config/MyBatisPlusConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/constant/UserConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/constant/UserConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/InterfaceInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoQueryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoUpdateRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/model/dto/interfaceInfo/InterfaceInfoUpdateRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/mapper/UserInterfaceInfoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/mapper/UserInterfaceInfoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner/InnerUserInterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/InterfaceInfoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/InterfaceInfoServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/ReflectionInvokeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/model/entity/InterfaceInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/src/main/java/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserInterfaceInfoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/main/resources/mapper/UserInterfaceInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/main/resources/mapper/UserInterfaceInfoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserInterfaceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-backend/src/test/java/com/yeyou/yeapiBackend/service/UserInterfaceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/InterfaceInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/InterfaceInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/Post.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/UserInterfaceInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/entity/UserInterfaceInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/InterfaceInfoEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/InterfaceInfoEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/PostGenderEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/PostGenderEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/PostReviewStatusEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/enums/PostReviewStatusEnum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/PostVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/PostVO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/UserVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/model/vo/UserVO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerInterfaceInfoService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-common/target/classes/com/yeyou/yeapicommon/service/InnerUserService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/YeapiGatewayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/YeapiGatewayApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/yeapi-gateway/src/main/java/com/yeyou/yeapigateway/filter/GlobalFilter.java" afterDir="false" />
@@ -34,8 +62,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -73,7 +101,7 @@
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
     &quot;last_opened_file_path&quot;: &quot;E:/Coding Workstations/Project/YeApi/yeapi-backend-project/yeapi-backend/src/main/java/com/yeyou/yeapiBackend/service/impl/Inner&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.3468045&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
@@ -96,7 +124,12 @@
       <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-common\src\main\java\com\yeyou\yeapicommon\model" />
       <recent name="E:\Coding Workstations\Project\YeApi\yeapi-backend-project\yeapi-common\src\main\java\com\yeyou\yeapicommon\service\model" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.yeyou.yeapiBackend.service" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yeyou.yeapiBackend.service.impl.Inner" />
+      <recent name="com.yeyou.yeapicommon.model.entity" />
       <recent name="com.yeyou.yeapicommon.service" />
     </key>
   </component>
@@ -119,6 +152,22 @@
       <option name="PACKAGE_NAME" value="com.yeyou.yeapiBackend.service" />
       <option name="MAIN_CLASS_NAME" value="com.yeyou.yeapiBackend.service.ReflectionInvokeTest" />
       <option name="METHOD_NAME" value="testGson" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserInterfaceTest.teamMapper" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="yeapi-backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.yeyou.yeapiBackend.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.yeyou.yeapiBackend.service" />
+      <option name="MAIN_CLASS_NAME" value="com.yeyou.yeapiBackend.service.UserInterfaceTest" />
+      <option name="METHOD_NAME" value="teamMapper" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,12 +204,14 @@
     <list>
       <item itemvalue="JAR Application.yeapi-backend-0.0.1-SNAPSHOT.jar" />
       <item itemvalue="JAR Application.yeapi-gateway-0.0.1-SNAPSHOT.jar" />
+      <item itemvalue="JUnit.UserInterfaceTest.teamMapper" />
       <item itemvalue="JUnit.ReflectionInvokeTest.testGson" />
       <item itemvalue="Spring Boot.YeApiBackendMain" />
       <item itemvalue="Spring Boot.YeapiGatewayApplication" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UserInterfaceTest.teamMapper" />
         <item itemvalue="Spring Boot.YeapiGatewayApplication" />
         <item itemvalue="JAR Application.yeapi-gateway-0.0.1-SNAPSHOT.jar" />
         <item itemvalue="JAR Application.yeapi-backend-0.0.1-SNAPSHOT.jar" />
@@ -187,7 +238,12 @@
       <workItem from="1680496208751" duration="7261000" />
       <workItem from="1680503842620" duration="6452000" />
       <workItem from="1680527348807" duration="2449000" />
-      <workItem from="1680530969530" duration="7916000" />
+      <workItem from="1680530969530" duration="8234000" />
+      <workItem from="1680586693947" duration="7517000" />
+      <workItem from="1680676703400" duration="8589000" />
+      <workItem from="1680876120311" duration="685000" />
+      <workItem from="1681017428960" duration="7275000" />
+      <workItem from="1681027138672" duration="5171000" />
     </task>
     <task id="LOCAL-00001" summary="调通了模拟接口调用链路&#10;add：网关通过RPC调用后台业务接口，完成权限验证">
       <created>1680097509560</created>
@@ -217,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680338698250</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix: 隐藏接口提供方的地址">
+      <created>1680539931065</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680539931065</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,6 +305,7 @@
     <MESSAGE value="update" />
     <MESSAGE value="优化了模拟调用的体验&#10;修改了yeapi-client-sdk，现在可以支持自定义类参数的模拟调用&#10;模拟接口现在可以自动判断并且调用选择的方法 方法的每个参数必须其中之一 1.包装类的参数2.已添加到自定义类的参数" />
     <MESSAGE value="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 完成了网关鉴权的功能&#10;增加了以下功能：预防重复攻击、验证用户剩余调用次数、网关引入Redis、目标接口主机地址的路由调度&#10;修改：路由以及断言信息由yml配置改为函数方法配置" />
+    <MESSAGE value="fix: 隐藏接口提供方的地址" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: 隐藏接口提供方的地址" />
   </component>
 </project>

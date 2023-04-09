@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @EnableDubbo
-@Service
 public class YeapiGatewayApplication {
 
     public static void main(String[] args) {

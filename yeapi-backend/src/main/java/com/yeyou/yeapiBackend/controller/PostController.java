@@ -193,7 +193,4 @@ public class PostController {
         Page<Post> postPage = postService.page(new Page<>(current, size), queryWrapper);
         return ResultUtils.success(postPage);
     }
-
-    // endregion
-
 }

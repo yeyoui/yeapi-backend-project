@@ -63,6 +63,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/add")
+    @AuthCheck(anyRole = {"admin","dev"})
     public BaseResponse<Long> addInterfaceInfo(@RequestBody InterfaceInfoAddRequest interfaceInfoAddRequest, HttpServletRequest request) {
         if (interfaceInfoAddRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -89,6 +90,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/delete")
+    @AuthCheck(anyRole = {"admin","dev"})
     public BaseResponse<Boolean> deleteInterfaceInfo(@RequestBody DeleteRequest deleteRequest, HttpServletRequest request) {
         if (deleteRequest == null || deleteRequest.getId() <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -116,6 +118,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/update")
+    @AuthCheck(anyRole = {"admin","dev"})
     public BaseResponse<Boolean> updateInterfaceInfo(@RequestBody InterfaceInfoUpdateRequest interfaceInfoUpdateRequest,
                                             HttpServletRequest request) {
         if (interfaceInfoUpdateRequest == null || interfaceInfoUpdateRequest.getId() <= 0) {
@@ -242,6 +245,7 @@ public class InterfaceInfoController {
      * 接口上线
      */
     @PostMapping("/online")
+    @AuthCheck(anyRole = {"admin","dev"})
     public BaseResponse<Boolean> onlineInterfaceInfo(@RequestBody IdRequest idRequest, HttpServletRequest request){
         //1. 检查传入的参数信息
         if(idRequest==null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -276,6 +280,7 @@ public class InterfaceInfoController {
      * 接口下线
      */
     @PostMapping("/offline")
+    @AuthCheck(anyRole = {"admin","dev"})
     public BaseResponse<Boolean> offlineInterfaceInfo(@RequestBody IdRequest idRequest, HttpServletRequest request){
         //1. 检查传入的参数信息
         if(idRequest==null) throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -323,8 +328,6 @@ public class InterfaceInfoController {
 //        if(StringUtils.isBlank(result)){
 //            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
 //        }
-        String result;
-        String result2;
 
         //5.获取AKSK并且调用接口
         String accessKey= loginUser.getAccessKey();
@@ -349,7 +352,7 @@ public class InterfaceInfoController {
     @AuthCheck(mustRole = "admin")
     public BaseResponse<Boolean> agreeUpload(IdRequest idRequest){
         if(idRequest.getId()<=0) throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        boolean result = interfaceInfoService.update().set("status", 0).update();
+        boolean result = interfaceInfoService.update().set("status", 1).update();
         if(!result) throw new BusinessException(ErrorCode.PARAMS_ERROR);
         return ResultUtils.success(true);
     }

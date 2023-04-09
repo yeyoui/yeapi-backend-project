@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.yeyou.yeapiBackend.mapper")
 public class MyBatisPlusConfig {
-
     /**
      * 拦截器配置
      */

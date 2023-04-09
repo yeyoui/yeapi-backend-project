@@ -26,7 +26,7 @@ create table if not exists user
 -- 接口信息
 create table interface_info
 (
-    id             bigint      auto_increment         primary key comment '主键',
+    id             bigint auto_increment primary key comment '主键',
     name           varchar(256)                       not null comment '名称',
     description    varchar(256)                       null comment '描述',
     url            varchar(512)                       not null comment '接口地址',
@@ -45,7 +45,7 @@ create table interface_info
 -- 用户调用接口关系表
 create table user_interface_info
 (
-    `id`          bigint auto_increment primary key  comment '主键',
+    `id`          bigint auto_increment primary key comment '主键',
     `userId`      bigint                             not null comment '用户ID',
     `interfaceId` bigint                             not null comment '接口ID',
     `status`      int      default 0                 not null comment '状态',
@@ -55,3 +55,14 @@ create table user_interface_info
     `updateTime`  datetime default CURRENT_TIMESTAMP not null on update current_timestamp comment '更新时间',
     `isDelete`    tinyint  default 0                 not null comment '是否删除（0-未删  1-以删'
 ) comment '用户调用接口关系'
+
+-- 接口秘钥表
+create table interface_secret
+(
+    `id`          bigint auto_increment primary key comment '主键',
+    `interfaceId` bigint unique     not null comment '接口ID',
+    `secret`      varchar(64)       not null comment '接口秘钥',
+    `isDelete`    tinyint default 0 not null comment '是否删除（0-未删  1-以删',
+    unique index interfaceIdIx (interfaceId)
+) comment '接口秘钥表'
+

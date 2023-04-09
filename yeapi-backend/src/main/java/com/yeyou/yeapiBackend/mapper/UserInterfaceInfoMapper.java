@@ -1,7 +1,10 @@
 package com.yeyou.yeapiBackend.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yeyou.yeapiBackend.model.vo.InterfaceInfoVO;
 import com.yeyou.yeapicommon.model.entity.UserInterfaceInfo;
+
+import java.util.List;
 
 /**
 * @author lhy
@@ -10,6 +13,7 @@ import com.yeyou.yeapicommon.model.entity.UserInterfaceInfo;
 * @Entity com.yeyou.yeapiBackend.model.entity.UserInterfaceInfo
 */
 public interface UserInterfaceInfoMapper extends BaseMapper<UserInterfaceInfo> {
+    List<InterfaceInfoVO> listTopInvokeInterface(int num);
 
 }
 

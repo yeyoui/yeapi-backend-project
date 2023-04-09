@@ -146,6 +146,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return user != null && UserConstant.ADMIN_ROLE.equals(user.getUserRole());
     }
 
+    @Override
+    public boolean isAdmin(long uid) {
+        // 仅管理员可查询
+        User user = this.getById(uid);
+        return user != null && UserConstant.ADMIN_ROLE.equals(user.getUserRole());
+    }
+
     /**
      * 用户注销
      *

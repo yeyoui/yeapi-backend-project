@@ -21,4 +21,11 @@
         status,totalNum,surplusNum,
         createTime,updateTime,isDelete
     </sql>
+    <select id="listTopInvokeInterface" resultType="com.yeyou.yeapiBackend.model.vo.InterfaceInfoVO">
+        SELECT interfaceId, SUM(totalNum) as totalNum
+        FROM user_interface_info
+        GROUP BY totalNum
+        ORDER BY totalNum DESC
+        LIMIT #{num}
+    </select>
 </mapper>

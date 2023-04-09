@@ -1,9 +1,13 @@
 package com.yeyou.yeapigateway.filter;
 
+import cn.hutool.crypto.digest.DigestAlgorithm;
+import cn.hutool.crypto.digest.DigestUtil;
+import cn.hutool.crypto.digest.Digester;
 import com.yeyou.yeapiclientsdk.utils.SignUtils;
 import com.yeyou.yeapicommon.model.entity.InterfaceInfo;
 import com.yeyou.yeapicommon.model.entity.User;
 import com.yeyou.yeapicommon.service.InnerInterfaceInfoService;
+import com.yeyou.yeapicommon.service.InnerInterfaceSecretService;
 import com.yeyou.yeapicommon.service.InnerUserInterfaceInfoService;
 import com.yeyou.yeapicommon.service.InnerUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -53,9 +57,11 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
     private InnerInterfaceInfoService innerInterfaceInfoService;
     @DubboReference
     private InnerUserInterfaceInfoService innerUserInterfaceInfoService;
+    @DubboReference
+    private InnerInterfaceSecretService innerInterfaceSecretService;
 
     private final static List<String> IP_BLACK_LIST = Arrays.asList("null");
-    private final static String GATEWAY_NAME = "yeapi-gateway-01";
+    private final static String GATEWAY_NAME="yeapi.gateway";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -126,18 +132,23 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         int surplus = innerUserInterfaceInfoService.getInterfaceSurplusByIUId(interfaceInfo.getId(), invokeUserInfo.getId());
         if(surplus<=0) return handleNoAuth(response);
 
+        //流量染色
+        String secret = innerInterfaceSecretService.getSecretByInterfaceId(interfaceInfo.getId());
+        String gateWaySign=null;
+        if(secret!=null){
+            Digester digester = new Digester(DigestAlgorithm.SHA256);
+            gateWaySign=digester.digestHex(GATEWAY_NAME+secret);
+        }
+
         //6.1匹配请求地址
-        //从接口中解析url信息
-//        Pattern pattern = Pattern.compile("^http://.*?/");
-//        Matcher matcher = pattern.matcher(interfaceInfo.getUrl());
-//        if (!matcher.find(0)){
-//            return handleArgsErr(response);
-//        }
-//        String uriStr = matcher.group(0);
         String uriStr = interfaceInfo.getUrl();
         URI uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
         // 生成新的Request对象，该对象放弃了常规路由配置中的spring.cloud.gateway.routes.uri字段
-        ServerHttpRequest newRequest = request.mutate().header("gatewayName",GATEWAY_NAME).uri(uri).build();
+        ServerHttpRequest newRequest = request
+                .mutate()
+                .header("gatewayInfo",gateWaySign)
+                .uri(uri)
+                .build();
         // 取出当前的route对象
         Route route = exchange.getAttribute(GATEWAY_ROUTE_ATTR);
         //重新设置Route地址
@@ -147,7 +158,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         // 放回exchange中
         exchange.getAttributes().put(GATEWAY_ROUTE_ATTR,newRoute);
         //6. 请求转发，调用接口
-        chain.filter(exchange);
+        chain.filter(exchange.mutate().request(newRequest).build());
         //7. 响应日志
         return handleResponse(exchange, chain,interfaceInfo.getId(), invokeUserInfo.getId());
     }
@@ -231,6 +242,6 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
 
     @Override
     public int getOrder() {
-        return -1;
+        return 2;
     }
 }

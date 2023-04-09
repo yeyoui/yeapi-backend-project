@@ -18,7 +18,7 @@ spring:
   redis:
     port: 6379
     host: 127.0.0.1
-    database: 0
+    database: 3
 #    password: 123456
 server:
   port: 8066
@@ -39,10 +39,11 @@ yeapi:
     secret-key: 123456
 dubbo:
   application:
-    name: dubbo-springboot-demo-provider
+    name: dubbo-yeapi-backend-provider
   protocol:
     name: dubbo
     port: -1
   registry:
-    address: nacos://localhost:8848
-gatewayhost: http://locahost:8090
+#    id: zookeeper-registry
+    address: zookeeper://${zookeeper.address:127.0.0.1}:2181
+gatewayhost: http://localhost:8090

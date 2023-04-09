@@ -1,25 +1,32 @@
 server:
   port: 8090
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: weight_high
-#          uri: http://localhost:8081
-#          predicates:
-#            - Path=/name/**
+
 spring:
   redis:
     port: 6379
     host: 127.0.0.1
     database: 3
+  cloud:
+    gateway:
+      routes:
+        - id: weight_high
+          uri: http://localhost:8081
+          predicates:
+            - Path=/yeapi/**
+      default-filters:
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 50
+            redis-rate-limiter.requestedTokens: 1
+            key-resolver: "#{@pathKeyResolver}"
 dubbo:
   application:
-    name: dubbo-springboot-gateway
+    name: dubbo-yeapi-gateway
   protocol:
     name: dubbo
     port: -1
   registry:
-    id: nacos-registry
-    address: nacos://localhost:8848
+#    id: zookeeper-registry
+    address: zookeeper://${zookeeper.address:127.0.0.1}:2181
 
