@@ -54,7 +54,7 @@ create table user_interface_info
     `createTime`  datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     `updateTime`  datetime default CURRENT_TIMESTAMP not null on update current_timestamp comment '更新时间',
     `isDelete`    tinyint  default 0                 not null comment '是否删除（0-未删  1-以删'
-) comment '用户调用接口关系'
+) comment '用户调用接口关系';
 
 -- 接口秘钥表
 create table interface_secret
@@ -64,5 +64,5 @@ create table interface_secret
     `secret`      varchar(64)       not null comment '接口秘钥',
     `isDelete`    tinyint default 0 not null comment '是否删除（0-未删  1-以删',
     unique index interfaceIdIx (interfaceId)
-) comment '接口秘钥表'
+) comment '接口秘钥表';
 

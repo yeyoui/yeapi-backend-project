@@ -4,12 +4,15 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.yeyou.yeapiBackend.Utils.UserHold;
 import com.yeyou.yeapiBackend.constant.UserConstant;
 import com.yeyou.yeapiBackend.exception.BusinessException;
 import com.yeyou.yeapiBackend.mapper.UserMapper;
+import com.yeyou.yeapiBackend.service.UserInterfaceInfoService;
 import com.yeyou.yeapiBackend.service.UserService;
 import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapicommon.model.entity.User;
+import com.yeyou.yeapicommon.model.entity.UserInterfaceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private UserInterfaceInfoService userInterfaceInfoService;
 
     /**
      * 盐值，混淆密码
@@ -40,19 +45,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
         // 1. 校验
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+        if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
         if (userAccount.length() < 4) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户账号过短");
         }
-        if (userPassword.length() < 8 || checkPassword.length() < 8) {
+        if (userPassword.length() < 8) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户密码过短");
         }
-        // 密码和校验密码相同
-        if (!userPassword.equals(checkPassword)) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "两次输入的密码不一致");
-        }
+//        // 密码和校验密码相同
+//        if (!userPassword.equals(checkPassword)) {
+//            throw new BusinessException(ErrorCode.PARAMS_ERROR, "两次输入的密码不一致");
+//        }
         synchronized (userAccount.intern()) {
             // 账户不能重复
             QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -76,7 +81,27 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             if (!saveResult) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "注册失败，数据库错误");
             }
+            //给新用户分配测试接口
+            UserInterfaceInfo ui1 = new UserInterfaceInfo();
+            ui1.setUserId(user.getId());
+            ui1.setInterfaceId(7L);
+            ui1.setSurplusNum(10);
+            UserInterfaceInfo ui2 = new UserInterfaceInfo();
+            ui2.setUserId(user.getId());
+            ui2.setInterfaceId(8L);
+            ui2.setSurplusNum(10);
+            distributeTestInterface(ui1);
+            distributeTestInterface(ui2);
+
             return user.getId();
+        }
+    }
+
+    private void distributeTestInterface(UserInterfaceInfo userInterfaceInfo){
+        userInterfaceInfoService.validUserInterfaceInfo(userInterfaceInfo, true);
+        boolean result = userInterfaceInfoService.save(userInterfaceInfo);
+        if (!result) {
+            throw new BusinessException(ErrorCode.OPERATION_ERROR);
         }
     }
 

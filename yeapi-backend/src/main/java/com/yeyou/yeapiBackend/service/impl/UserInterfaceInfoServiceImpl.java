@@ -32,8 +32,8 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
             if(userInterfaceInfo.getSurplusNum()<0)
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "剩余次数不能小于0");
         }
-
     }
+
 
     @Override
     public boolean invokeCount(long interfaceId, long userId) {

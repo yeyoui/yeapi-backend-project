@@ -94,12 +94,14 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         User invokeUserInfo = null;
         invokeUserInfo = innerUserService.getInvokeUserInfo(accessKey);
         if(invokeUserInfo==null){
+            log.info("秘钥错误");
             return handleNoAuth(response);
         }
         //3.1将数据进行签名运算，然后对比客户端发来的签名
         String serviceSign = SignUtils.getSign(body, invokeUserInfo.getSecretKey());
         //秘钥错误
         if(!serviceSign.equals(clientSign)){
+            log.info("秘钥错误");
             return handleNoAuth(response);
         }
 
@@ -111,6 +113,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
             log.error("getInterface error",e);
         }
         if(interfaceInfo==null) {
+            log.info("找不到接口");
             return handleArgsErr(response);
         }
 
@@ -124,7 +127,10 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         //5.2 在5分钟内随机数是否重新收到（不能收到重复的随机数 使用Redis实现，防止重放攻击）
         String key=USER_RANDOM_NUM_KEY_PRE+interfaceInfo.getId()+":"+invokeUserInfo.getId()+randomNum;
         String isExisted = stringRedisTemplate.opsForValue().get(key);
-        if(isExisted!=null) return handleArgsErr(response);
+        if(isExisted!=null){
+            log.info("重复的随机数");
+            return handleArgsErr(response);
+        }
         //暂存随机数
         stringRedisTemplate.opsForValue().set(key,randomNum,USER_RANDOM_NUM_EXPIRE_MIN, TimeUnit.MINUTES);
 

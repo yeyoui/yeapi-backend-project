@@ -1,5 +1,6 @@
 package com.yeyou.yeapiBackend.controller;
 
+import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
@@ -7,18 +8,24 @@ import com.yeyou.yeapiBackend.common.BaseResponse;
 import com.yeyou.yeapiBackend.common.DeleteRequest;
 import com.yeyou.yeapiBackend.common.ErrorCode;
 import com.yeyou.yeapiBackend.common.ResultUtils;
+import com.yeyou.yeapiBackend.constant.RedisConstant;
+import com.yeyou.yeapiBackend.constant.UserConstant;
 import com.yeyou.yeapiBackend.exception.BusinessException;
 import com.yeyou.yeapiBackend.model.dto.user.*;
+import com.yeyou.yeapiclientsdk.client.YeApiClient;
+import com.yeyou.yeapiclientsdk.model.MailMsg;
 import com.yeyou.yeapicommon.model.entity.User;
 import com.yeyou.yeapiBackend.model.vo.UserVO;
 import com.yeyou.yeapiBackend.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -32,6 +39,10 @@ public class UserController {
 
     @Resource
     private UserService userService;
+    @Resource
+    private YeApiClient yeApiClient;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 用户注册
@@ -46,11 +57,10 @@ public class UserController {
         }
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
-        String checkPassword = userRegisterRequest.getCheckPassword();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
+        if (StringUtils.isAnyBlank(userAccount, userPassword)) {
             return null;
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        long result = userService.userRegister(userAccount, userPassword, null);
         return ResultUtils.success(result);
     }
 
@@ -75,6 +85,56 @@ public class UserController {
         return ResultUtils.success(user);
     }
 
+    /**
+     * 邮箱验证码登录
+     * @param userLoginRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/loginByEmail")
+    public BaseResponse<User> loginByEmail(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
+        if (userLoginRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        //获取邮箱和验证码
+        String email = userLoginRequest.getUserAccount();
+        String userCode = userLoginRequest.getUserPassword();
+        if (StringUtils.isAnyBlank(email, userCode)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        //从Redis中查询验证码
+        String key= RedisConstant.LOGIN_CODE_KEY+email;
+        String rightCode = stringRedisTemplate.opsForValue().get(key);
+        if(rightCode==null || !rightCode.equals(userCode)){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR,"验证码错误");
+        }
+        //查询该用户是否注册过
+        User user = userService.query().eq("userAccount", email).one();
+        if(user==null){
+            //新用户
+            String pwd = UUID.randomUUID().toString().substring(0, 16);
+            long uid = userService.userRegister(email, pwd, pwd);
+            user = userService.getById(uid);
+        }
+        request.getSession().setAttribute(UserConstant.USER_LOGIN_STATE, user);
+        return ResultUtils.success(user);
+    }
+    /**
+     * 获取邮箱验证码
+     */
+    @GetMapping("/getLoginCode")
+    public BaseResponse<Boolean> getLoginCode(String email){
+        MailMsg mailMsg = new MailMsg();
+        mailMsg.setReceiver(email);
+        mailMsg.setTitle("YeApi登录验证码");
+        mailMsg.setMsg("这是你的验证码(5分钟过期)：");
+        mailMsg.setCodeNum(5);
+        String code = yeApiClient.sendCode(mailMsg);
+        if("error".equals(code)) return ResultUtils.success(false);
+        String key= RedisConstant.LOGIN_CODE_KEY+email;
+        stringRedisTemplate.opsForValue().set(key,code,RedisConstant.LOGIN_CODE_TLL, TimeUnit.MINUTES);
+        return ResultUtils.success(true);
+    }
     /**
      * 用户注销
      *
