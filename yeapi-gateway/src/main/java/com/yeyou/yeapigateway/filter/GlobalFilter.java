@@ -32,14 +32,13 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.yeyou.yeapigateway.constants.RedisConstants.USER_RANDOM_NUM_EXPIRE_MIN;
 import static com.yeyou.yeapigateway.constants.RedisConstants.USER_RANDOM_NUM_KEY_PRE;
@@ -68,14 +67,9 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         //1. 请求日志
         ServerHttpRequest request = exchange.getRequest();
 //        String requestPath = INTERFACE_HOST+request.getPath().value();
-        String sourceAddress = request.getLocalAddress().getHostString();
+        String sourceAddress = request.getRemoteAddress().getHostString();
         String method = request.getMethod().toString();
         ServerHttpResponse response = exchange.getResponse();
-
-        //2. 检查目标IP是否是白名单用户
-        if(IP_BLACK_LIST.contains(sourceAddress)){
-            return handleNoAuth(response);
-        }
 
         //3. 用户鉴权
         HttpHeaders headers = request.getHeaders();
@@ -85,11 +79,20 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         String timestamp = headers.getFirst("timestamp");
         String body = headers.getFirst("body");
         String interfaceId = headers.getFirst("interfaceId");
+        String clientIP = headers.getFirst("X-Forwarded-For");
+        if(clientIP==null) clientIP="null";
+        else clientIP=clientIP.split(",")[0];
+
+        //2. 检查目标IP是否是白名单用户
+//        if(IP_BLACK_LIST.contains(clientIP)){
+//            return handleNoAuth(response);
+//        }
+
         log.info("链路ID: {}",request.getId());
         log.info("调用路径: {}", request.getPath());
         log.info("调用参数: {}", request.getQueryParams());
         log.info("方法: {}", method);
-        log.info("远程地址: {}\n_____________________", sourceAddress);
+        log.info("远程地址: {}", clientIP);
 
         User invokeUserInfo = null;
         invokeUserInfo = innerUserService.getInvokeUserInfo(accessKey);
@@ -153,6 +156,7 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         ServerHttpRequest newRequest = request
                 .mutate()
                 .header("gatewayInfo",gateWaySign)
+                .header("clientIP",clientIP)
                 .uri(uri)
                 .build();
         // 取出当前的route对象

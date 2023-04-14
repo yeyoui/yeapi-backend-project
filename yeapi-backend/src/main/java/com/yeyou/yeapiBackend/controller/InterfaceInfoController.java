@@ -328,7 +328,10 @@ public class InterfaceInfoController {
 //        if(StringUtils.isBlank(result)){
 //            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "系统接口验证失败");
 //        }
-
+        //后端能直接处理
+        if(interfaceId==4){
+            return ResultUtils.success(request.getRemoteAddr());
+        }
         //5.获取AKSK并且调用接口
         String accessKey= loginUser.getAccessKey();
         String secretKey = loginUser.getSecretKey();
