@@ -151,12 +151,14 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
 
         //6.1匹配请求地址
         String uriStr = interfaceInfo.getUrl();
-        URI uri = UriComponentsBuilder.fromHttpUrl(uriStr).build().toUri();
+        String query = request.getURI().getQuery();
+        URI uri = UriComponentsBuilder.fromHttpUrl(uriStr).query(query).build().toUri();
         // 生成新的Request对象，该对象放弃了常规路由配置中的spring.cloud.gateway.routes.uri字段
         ServerHttpRequest newRequest = request
                 .mutate()
                 .header("gatewayInfo",gateWaySign)
                 .header("clientIP",clientIP)
+                .method(request.getMethod())
                 .uri(uri)
                 .build();
         // 取出当前的route对象
@@ -168,9 +170,10 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
         // 放回exchange中
         exchange.getAttributes().put(GATEWAY_ROUTE_ATTR,newRoute);
         //6. 请求转发，调用接口
-        chain.filter(exchange.mutate().request(newRequest).build());
+//        boolean result = innerUserInterfaceInfoService.invokeCount(interfaceInfo.getId(), invokeUserInfo.getId());
+//        return chain.filter(exchange.mutate().request(newRequest).build());
         //7. 响应日志
-        return handleResponse(exchange, chain,interfaceInfo.getId(), invokeUserInfo.getId());
+        return handleResponse(exchange.mutate().request(newRequest).build(), chain,interfaceInfo.getId(), invokeUserInfo.getId());
     }
 
 
@@ -252,6 +255,6 @@ public class GlobalFilter implements org.springframework.cloud.gateway.filter.Gl
 
     @Override
     public int getOrder() {
-        return 2;
+        return -1;
     }
 }
