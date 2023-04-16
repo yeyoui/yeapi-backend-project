@@ -19,7 +19,7 @@ API平台提供的这些功能一般都是一些程序或者网站常用的功�
 ## 主体设计
 ## 页面展示
 ### 线上地址
-[yeapi.com](yeapi.com)
+[yeapi.com](http://yeapi.top)
 
 账号：yeyooi
 密码：12345678
